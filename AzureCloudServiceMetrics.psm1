@@ -61,6 +61,15 @@ function Export-ComputeUtilisationForSubscription {
     $deployments | Invoke-Parallel $getMetrics | Export-Csv .\$subscriptionName.Metrics.csv -NoTypeInformation
 }
 
+function Merge-Subscriptions {
+
+    $subscriptionNames = gci *.metrics.csv | % { $_.Name.Replace(".Metrics.csv", "") }
+
+    $subscriptionNames | % { "$_.csv" } | Import-Csv | Export-Csv "Merged.csv"
+    $subscriptionNames | % { "$_.Metrics.csv" } | Import-Csv | Export-Csv "Merged.Metrics.csv"
+}
+
+
 function Invoke-Parallel { 
     Param(
         [Parameter(Mandatory = $true)] [ScriptBlock]$ScriptBlock, 

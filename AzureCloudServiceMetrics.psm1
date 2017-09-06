@@ -65,8 +65,8 @@ function Merge-Subscriptions {
 
     $subscriptionNames = gci *.metrics.csv | % { $_.Name.Replace(".Metrics.csv", "") }
 
-    $subscriptionNames | % { "$_.csv" } | Import-Csv | Export-Csv "Merged.csv"
-    $subscriptionNames | % { "$_.Metrics.csv" } | Import-Csv | Export-Csv "Merged.Metrics.csv"
+    $subscriptionNames | % { "$_.csv" } | Import-Csv | Export-Csv "Merged.csv" -NoTypeInformation
+    $subscriptionNames | % { "$_.Metrics.csv" } | Import-Csv | Export-Csv "Merged.Metrics.csv" -NoTypeInformation
 }
 
 
